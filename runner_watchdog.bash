@@ -38,7 +38,7 @@ log_file="run.log"
 
 # Check each runner
 while IFS= read -r runner; do
-	cd "${runner}"
+	cd "${runner_root}/${runner}"
 
 	if [[ -f "${stop_file}" ]]; then
 		# Runner has been marked as STOPPED
@@ -63,6 +63,4 @@ while IFS= read -r runner; do
 		echo "${pid}" > "${lock_file}"
 		echo "Runner started with PID ${pid}."
 	fi
-
-	cd ..
 done < <(list_existing_runners "${runner_root}")

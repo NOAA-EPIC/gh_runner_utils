@@ -89,7 +89,7 @@ for ((runner_num = num_existing - 1; runner_num >= new_total; runner_num--)); do
 
 	# Unregister the runner from GH
 	cd "${runner_dir}"
-	./config.bash remove --token "${token}"
+	./config.sh remove --token "${token}"
 	cd ..
 
 	# Remove the runner directory

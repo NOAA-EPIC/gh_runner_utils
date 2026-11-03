@@ -16,6 +16,7 @@
 # ```cron
 # */5 * * * * /path/to/runner_root/runner_watchdog.bash >> /path/to/runner_root_runner_watchdog.log 2>&1
 # ```
+#
 
 set -eu
 

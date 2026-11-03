@@ -120,7 +120,7 @@ function list_existing_runners() {
 	#
 	local runner_root=$1
 	# shellcheck disable=SC2154
-	find "${runner_root}" -maxdepth 1 -type d -regextype posix-extended -regex "${runner_root}/${MACHINE_ID}_[0-9]{3}" -printf '%f\\n' | sort
+	find "${runner_root}" -maxdepth 1 -type d -regextype posix-extended -regex "${runner_root}/${MACHINE_ID}_[0-9]{3}" -printf '%f\n' | sort
 }
 
 function count_existing_runners() {

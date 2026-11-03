@@ -6,7 +6,7 @@ runners=("$@")
 
 runner_root=$(cd -- "$(dirname -- "${BASH_SOURCE[0]}")" > /dev/null 2>&1 && pwd)
 cd "${runner_root}"
-source "runner_functions.sh"
+source "runner_functions.bash"
 ensure_host "$@"
 
 # List all the descendants of a process
@@ -22,7 +22,7 @@ function list_descendants() {
 }
 
 # Determine which machine we are on
-source "detect_machine.sh"
+source "detect_machine.bash"
 
 # If the first argument is 'all', create a list of all runners (and ignore any other args)
 if [[ "${runners[0]:-}" == "all" ]]; then

@@ -7,7 +7,7 @@ repo=${2:-"none"}
 target_host=${3:-""}
 
 script_dir=$(cd -- "$(dirname -- "${BASH_SOURCE[0]}")" &> /dev/null && pwd)
-source "${script_dir}/runner_functions.sh"
+source "${script_dir}/runner_functions.bash"
 
 # Source and validation hash for Linux x64 GH runner tarball
 # https://github.com/actions/runner/releases
@@ -18,7 +18,7 @@ runner_tarball_hash='baebf204307bac6193480852732f0aba2ae97b6c5597c244f4d55583901
 runner_tarball=$(basename "${runner_source_url}")
 
 # Determine which machine we are on
-source "${script_dir}/detect_machine.sh"
+source "${script_dir}/detect_machine.bash"
 
 if [[ "${runner_root}" == "" ]]; then
 	echo "Where would you like to initalize to host GitHub runners?"
@@ -32,9 +32,9 @@ if [[ -d "${runner_root}" ]]; then
 	while [[ "${choice}" == "" ]]; do
 		read -r choice
 		if [[ ${choice} =~ ^d(|elete)$ ]]; then
-			if [[ -f "${runner_root}/destroy_runners.sh" && -d "${runner_root}/${MACHINE_ID}_000" ]]; then
+			if [[ -f "${runner_root}/destroy_runners.bash" && -d "${runner_root}/${MACHINE_ID}_000" ]]; then
 				echo "Existing runners detected, making sure all runners are destroyed first"
-				no | "${runner_root}/destroy_runners.sh" all > /dev/null || true
+				no | "${runner_root}/destroy_runners.bash" all > /dev/null || true
 			fi
 			echo "Deleting ${runner_root}..."
 			rm -Rf "${runner_root}"
@@ -113,17 +113,17 @@ rm "${runner_tarball}"
 cd ..
 
 # Copy non-executable scripts to the runner directory (these get sourced by the others)
-for script in runner_functions.sh detect_machine.sh; do
+for script in runner_functions.bash detect_machine.bash; do
 	cp "${script_dir}/${script}" ./
 done
 
 # Copy executable scripts to the runner directory
-for script in create_runners.sh destroy_runners.sh runner_watchdog.sh \
-				stop_runners.sh start_runners.sh; do
+for script in create_runners.bash destroy_runners.bash runner_watchdog.bash \
+				stop_runners.bash start_runners.bash; do
 
 	cp "${script_dir}/${script}" ./
 	chmod 744 "./${script}"
 done
 
 echo "GitHub runner directory has been initialized at ${runner_root}"
-echo "Run ${runner_root}/create_runners.sh to create new runners"
+echo "Run ${runner_root}/create_runners.bash to create new runners"

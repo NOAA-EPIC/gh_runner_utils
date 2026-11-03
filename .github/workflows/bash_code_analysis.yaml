@@ -72,7 +72,7 @@ jobs:
           # --- File discovery (mirrors reviewdog/action-shellcheck) -----------
           # pattern / exclude / check_all_files_with_shebangs equivalents of the
           # previous action-shellcheck configuration.
-          name_expr=(-name 'config.*' -o -name 'JG*' -o -name '*.env' -o -name '*.sh' -o -name '*.bash')
+          name_expr=(-o -name '*.sh' -o -name '*.bash')
           exclude_expr=(-not -path '*/.git/*' -not -path '*/*.yml' -not -path '*/*.yaml' -not -path '*/*.j2')
 
           mapfile -t pattern_files < <(find . "${exclude_expr[@]}" -type f \( "${name_expr[@]}" \))

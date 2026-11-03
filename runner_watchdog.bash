@@ -4,11 +4,11 @@ set -eu
 
 runner_root=$(cd -- "$(dirname -- "${BASH_SOURCE[0]}")" > /dev/null 2>&1 && pwd)
 cd "${runner_root}"
-source "runner_functions.sh"
+source "runner_functions.bash"
 ensure_host "$@"
 
 # Determine which machine we are on
-source "detect_machine.sh"
+source "detect_machine.bash"
 
 list_existing_runners "${runner_root}"
 

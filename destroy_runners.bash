@@ -7,7 +7,7 @@ token=${2:-"none"}
 
 runner_root=$(cd -- "$(dirname -- "${BASH_SOURCE[0]}")" &> /dev/null && pwd)
 cd "${runner_root}"
-source "runner_functions.sh"
+source "runner_functions.bash"
 
 if [[ ! -f ".target_repo" ]]; then
 	echo "The repo file (.target_repo) is missing in ${runner_root}, reinitialize directory"
@@ -17,7 +17,7 @@ repo=$(cat .target_repo)
 validate_repo "${repo}"
 
 # Determine which machine we are on
-source "detect_machine.sh"
+source "detect_machine.bash"
 
 # Check for existing runners
 num_existing=$(count_existing_runners "${runner_root}")
@@ -60,10 +60,10 @@ for ((runner_num = num_existing - 1; runner_num >= new_total; runner_num--)); do
 	runner_num_padded=$(printf '%03d' "${runner_num}")
 	runner_dir="${MACHINE_ID}_${runner_num_padded}"
 	# Stop the runner if is running
-	./stop_runners.sh "${runner_dir}"
+	./stop_runners.bash "${runner_dir}"
 	cd "${runner_dir}"
 	# Unregister the runner from GH
-	./config.sh remove --token "${token}"
+	./config.bash remove --token "${token}"
 	cd ..
 	# Remove the runner directory
 	rm -Rf "${runner_dir}"

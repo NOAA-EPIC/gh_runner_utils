@@ -7,7 +7,7 @@ token=${2:-"none"}
 
 runner_root=$(cd -- "$(dirname -- "${BASH_SOURCE[0]}")" &> /dev/null && pwd)
 cd "${runner_root}"
-source "runner_functions.sh"
+source "runner_functions.bash"
 
 if [[ ! -f ".target_repo" ]]; then
 	echo "The repo file (.target_repo) is missing in ${runner_root}, reinitialize directory"
@@ -17,7 +17,7 @@ repo=$(cat .target_repo)
 validate_repo "${repo}"
 
 # Determine which machine we are on
-source "detect_machine.sh"
+source "detect_machine.bash"
 
 # Check for existing runners
 num_existing=$(count_existing_runners "${runner_root}")
@@ -61,7 +61,7 @@ for ((runner_num = num_existing; runner_num < new_total; runner_num++)); do
 done
 
 # Run watchdog to start any new runners
-./runner_watchdog.sh
+./runner_watchdog.bash
 
 echo "Your new runners have been created and started"
-echo "Add ${runner_root}/runner_watchdog.sh to your crontab to keep your runners running"
+echo "Add ${runner_root}/runner_watchdog.bash to your crontab to keep your runners running"

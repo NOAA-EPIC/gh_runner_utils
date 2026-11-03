@@ -16,4 +16,4 @@ jobs:
         uses: actions/checkout@v4
 
       - name: Run shell test script
-        run: bash ./test_runner_functions.sh
+        run: bash ./test_runner_functions.bash

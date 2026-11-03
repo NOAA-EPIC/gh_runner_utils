@@ -4,7 +4,7 @@
 set -u
 
 TEST_ROOT="$(cd -- "$(dirname -- "${BASH_SOURCE[0]}")" &> /dev/null && pwd)"
-source "${TEST_ROOT}/runner_functions.sh"
+source "${TEST_ROOT}/runner_functions.bash"
 
 pass_count=0
 fail_count=0
@@ -156,7 +156,7 @@ printf 'target-host\n' > "${WORKDIR}/host_ok/.target_host"
 (
 	cd "${WORKDIR}/host_ok"
 	HOSTNAME="target-host"
-	source "${TEST_ROOT}/runner_functions.sh"
+	source "${TEST_ROOT}/runner_functions.bash"
 	ensure_host
 )
 status=$?
@@ -167,7 +167,7 @@ printf 'target-host\n' > "${WORKDIR}/host_ssh/.target_host"
 (
 	cd "${WORKDIR}/host_ssh"
 	HOSTNAME="other-host"
-	source "${TEST_ROOT}/runner_functions.sh"
+	source "${TEST_ROOT}/runner_functions.bash"
 	ensure_host
 )
 status=$?
@@ -183,7 +183,7 @@ cat > "${WORKDIR}/gh" <<'EOF'
 exit 1
 EOF
 chmod +x "${WORKDIR}/gh"
-output=$(printf '%s\n' 'manual-token' | (cd "${WORKDIR}" && source "${TEST_ROOT}/runner_functions.sh" && get_token "https://github.com/owner/repo") 2>&1)
+output=$(printf '%s\n' 'manual-token' | (cd "${WORKDIR}" && source "${TEST_ROOT}/runner_functions.bash" && get_token "https://github.com/owner/repo") 2>&1)
 assert_contains "${output}" "Could not get token automatically from GitHub CLI" "get_token warns when gh fails"
 assert_contains "${output}" "manual-token" "get_token accepts a manually entered token"
 

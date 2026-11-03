@@ -1,12 +1,29 @@
 #!/usr/bin/env bash
+#
+# start_runners.bash Start previously stopped GitHub Actions runners.
+#
+# Usage: ./start_runners.bash [runner1|all [runner2 ...]]
+#
+# Examples: ./start_runners.bash 0 2 ./start_runners.bash all
+#
+# Remove any stopped markers from the specified runners, then call watchdog to
+# restart them. Runner names may either be the full runner name
+# (`${machine}_###`) or just the number of the runner(s). If the first argument
+# is `all`, all runners will be started and any other arguments are ignored.
+#
 
 set -eu
 
+# Get arguments
 runners=("$@")
 
+# Run from the script directory and load functions
 runner_root=$(cd -- "$(dirname -- "${BASH_SOURCE[0]}")" > /dev/null 2>&1 && pwd)
 cd "${runner_root}"
 source "runner_functions.bash"
+
+# Make sure we are running on the designated host, otherwise run this script there via SSH
+# This ensures we can manage the runner process IDs
 ensure_host "$@"
 
 # Determine which machine we are on
@@ -25,6 +42,7 @@ for runner in "${runners[@]}"; do
 		runner="${MACHINE_ID}_${runner_num_padded}"
 	fi
 
+	# Make sure the runner exists
 	if [[ ! -d "${runner}" ]]; then
 		echo "${runner} is not a valid GitHub runner directory"
 		exit 2

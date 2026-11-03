@@ -1,4 +1,15 @@
 #!/usr/bin/env bash
+
+#
+# test_runner_functions.bash
+# Exercise the shared runner helper functions and validate their behavior.
+#
+# Usage:
+#   ./test_runner_functions.bash
+#
+# This script runs a small set of assertions for repository validation, token
+# generation, and host-check helpers used by the runner management scripts.
+
 # shellcheck disable=SC2164
 
 set -u

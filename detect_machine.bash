@@ -1,5 +1,15 @@
 #!/bin/bash
 
+#
+# detect_machine.bash
+# Detect the current HPC machine ID and expose it via MACHINE_ID.
+#
+# Usage:
+#   source ./detect_machine.bash
+#
+# This helper sets MACHINE_ID based on the hostname or filesystem layout and is
+# sourced by the runner management scripts.
+
 # The authoritative copy of this script lives in the ufs-weather-model at:
 # https://github.com/ufs-community/ufs-weather-model/blob/develop/tests/detect_machine.bash
 # If any local modifications are made or new platform support added,

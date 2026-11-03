@@ -1,0 +1,7 @@
+# Global settings for Shellcheck (https://github.com/koalaman/shellcheck)
+enable=all
+
+external-sources=true
+
+# Disable masking of return codes from chained commands.  Use `set -o pipefail` to trap them.
+disable=SC2312
